@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"path"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -21,8 +22,9 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
-		res, err := NewResource(base, r.RequestURI)
+		res, err := NewResource(path.Join(base, r.RequestURI))
 		if err != nil {
+			log.Print("Failed to load resource: ", err)
 			w.WriteHeader(404)
 			return
 		}

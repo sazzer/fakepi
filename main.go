@@ -9,6 +9,8 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+
+	"github.com/sazzer/fakepi/internal"
 )
 
 func main() {
@@ -24,7 +26,7 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
-		res, err := NewResource(path.Join(*base, r.RequestURI))
+		res, err := internal.NewResource(path.Join(*base, r.RequestURI))
 		if err != nil {
 			log.Print("Failed to load resource: ", err)
 			w.WriteHeader(404)

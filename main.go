@@ -9,6 +9,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
 
 	"github.com/sazzer/fakepi/internal"
 )
@@ -25,6 +26,13 @@ func main() {
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	r.Use(cors.Handler(cors.Options{
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}))
+
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		res, err := internal.NewResource(path.Join(*base, r.RequestURI))
 		if err != nil {

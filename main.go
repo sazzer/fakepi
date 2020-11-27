@@ -36,6 +36,11 @@ func main() {
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		res, err := internal.NewResource(path.Join(*base, r.RequestURI))
 		if err != nil {
+			// We failed to load the resource. Try loading a slightly different one to see.
+			res, err = internal.NewResource(path.Join(*base, r.RequestURI, "_index"))
+		}
+
+		if err != nil {
 			log.Print("Failed to load resource: ", err)
 			w.WriteHeader(404)
 			return

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,16 +14,17 @@ import (
 func main() {
 	fmt.Println("FakePI")
 
-	port := 8090
-	base := "./resources"
+	port := flag.Int("port", 8000, "Port to listen on")
+	base := flag.String("resources", ".", "Directory containing resources to serve")
+	flag.Parse()
 
-	fmt.Printf("Listening on %d\n", port)
-	fmt.Printf("Serving up from: %s\n", base)
+	fmt.Printf("Listening on %d\n", *port)
+	fmt.Printf("Serving up from: %s\n", *base)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
-		res, err := NewResource(path.Join(base, r.RequestURI))
+		res, err := NewResource(path.Join(*base, r.RequestURI))
 		if err != nil {
 			log.Print("Failed to load resource: ", err)
 			w.WriteHeader(404)
@@ -39,7 +41,7 @@ func main() {
 		}
 	})
 
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), r)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", *port), r)
 	if err != nil {
 		log.Panic("Failed to start server", err)
 	}

@@ -1,0 +1,28 @@
+200
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "self": {
+      "href": "/posts"
+    }
+  }
+  "_embedded": {
+    "tag:fakepi,2020:resources/post": [
+      {
+        "_links": {
+          "self": {
+            "href": "/posts/1"
+          },
+          "tag:fakepi,2020:resources/author": {
+            "href": "/authors/1",
+            "title":"Graham"
+          }
+        },
+        "title": "My First Post"
+      }
+    ]
+  },
+  "count": 1,
+  "total": 1
+}

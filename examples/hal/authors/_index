@@ -1,0 +1,24 @@
+200
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "self": {
+      "href": "/authors"
+    }
+  }
+  "_embedded": {
+    "tag:fakepi,2020:resources/author": [
+      {
+        "_links": {
+          "self": {
+            "href": "/authors/1"
+          }
+        },
+        "name": "Graham"
+      }
+    ]
+  },
+  "count": 1,
+  "total": 1
+}

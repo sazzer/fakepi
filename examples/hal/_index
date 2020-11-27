@@ -1,0 +1,16 @@
+200
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "self": {
+      "href": "/"
+    },
+    "tag:fakepi,2020:resources/posts": {
+      "href": "/posts"
+    },
+    "tag:fakepi,2020:resources/authors": {
+      "href": "/authors"
+    }
+  }
+}

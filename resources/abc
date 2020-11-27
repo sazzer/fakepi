@@ -1,6 +1,0 @@
-200
-Content-Type: application/json
-
-{
-  "hello": "world"
-}

@@ -1,3 +1,8 @@
 module github.com/sazzer/fakepi
 
 go 1.15
+
+require (
+	github.com/go-chi/chi v1.5.0
+	github.com/labstack/echo/v4 v4.1.17
+)
